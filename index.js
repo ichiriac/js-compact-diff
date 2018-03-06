@@ -1,4 +1,4 @@
-module.exports = {
+var api = {
   changes: function(a, b) {
     var result = {};
     for(var k in a) {
@@ -11,7 +11,7 @@ module.exports = {
           // get changes
           if (typeof a[k] === 'object' || Array.isArray(a[k])) {
             if (typeof b[k] === 'object' || Array.isArray(b[k])) {
-              let c = module.exports.changes(a[k], b[k]);
+              let c = api.changes(a[k], b[k]);
               if (c) {
                 result[k] = c;
               }
@@ -53,7 +53,7 @@ module.exports = {
           // detect changes
           if (typeof a[k] === 'object' || Array.isArray(a[k])) {
             if (typeof c[k] === 'object') {
-              result[k] = module.exports.apply(a[k], c[k]);
+              result[k] = api.apply(a[k], c[k]);
             } else {
               // destination is a primitive
               result[k] = c[k];
@@ -79,4 +79,10 @@ module.exports = {
     }
     return result;
   }
+};
+
+if (module && module.exports) {
+  module.exports = api;
+} else {
+  window.jsCompactDiff = api;
 }
