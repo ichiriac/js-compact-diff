@@ -81,7 +81,7 @@ var api = {
   }
 };
 
-if (module && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = api;
 } else {
   window.jsCompactDiff = api;
