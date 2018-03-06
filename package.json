@@ -1,0 +1,19 @@
+{
+  "name": "js-compact-diff",
+  "version": "1.0.0",
+  "description": "Javascript Diff representation between objects (in a compacted way)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ichiriac/js-compact-diff.git"
+  },
+  "author": "Ioan CHIRIAC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ichiriac/js-compact-diff/issues"
+  },
+  "homepage": "https://github.com/ichiriac/js-compact-diff#readme"
+}
