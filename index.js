@@ -1,5 +1,6 @@
 var api = {
   changes: function(a, b) {
+    if (b === null || typeof b === 'undefined') return a;
     var result = {};
     for(var k in a) {
       if (a.hasOwnProperty(k)) {
@@ -42,38 +43,41 @@ var api = {
     return result;
   },
   apply: function(a, c) {
+    if (c === null || typeof c === 'undefined') return a;
     var result = c.__ && c.__ === 'a' ? [] : {};
-    for(var k in a) {
-      if (a.hasOwnProperty(k)) {
-        if (c._ && c._.indexOf(k) > -1) {
-          // ignore property because deleted
-          continue;
-        }
-        if (c.hasOwnProperty(k)) {
-          // detect changes
-          if (typeof a[k] === 'object' || Array.isArray(a[k])) {
-            if (typeof c[k] === 'object') {
-              result[k] = api.apply(a[k], c[k]);
-            } else {
-              // destination is a primitive
-              result[k] = c[k];
-            }
-          } else {
-            if (c[k].__ === 'a') {
-              // rebuilds the array
-              result[k] = [];
-              for(var i in c[k]) {
-                if (i !== '_' && i !== '__') {
-                  result[k][i] = c[k][i];
-                }
+    if (a) {
+      for(var k in a) {
+        if (a.hasOwnProperty(k)) {
+          if (c._ && c._.indexOf(k) > -1) {
+            // ignore property because deleted
+            continue;
+          }
+          if (c.hasOwnProperty(k)) {
+            // detect changes
+            if (typeof a[k] === 'object' || Array.isArray(a[k])) {
+              if (typeof c[k] === 'object') {
+                result[k] = api.apply(a[k], c[k]);
+              } else {
+                // destination is a primitive
+                result[k] = c[k];
               }
             } else {
-              result[k] = c[k];
+              if (c[k].__ === 'a') {
+                // rebuilds the array
+                result[k] = [];
+                for(var i in c[k]) {
+                  if (i !== '_' && i !== '__') {
+                    result[k][i] = c[k][i];
+                  }
+                }
+              } else {
+                result[k] = c[k];
+              }
             }
+          } else {
+            // exactly the same
+            result[k] = a[k];
           }
-        } else {
-          // exactly the same
-          result[k] = a[k];
         }
       }
     }

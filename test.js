@@ -26,6 +26,7 @@ var b = {
   y: -1
 };
 
+diff.changes(a, null);
 var c = diff.changes(a, b);
 console.log(a);
 console.log('---------------');
