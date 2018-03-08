@@ -77,6 +77,15 @@ var api = {
         }
       }
     }
+    // appends missing keys
+    for(var k in c) {
+      if (k !== '_' && k !== '__' && c.hasOwnProperty(k)) {
+        if (!a.hasOwnProperty(k)) {
+          result[k] = c[k];
+        }
+      }
+    }
+
     return result;
   }
 };

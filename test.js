@@ -22,7 +22,8 @@ var b = {
       bar: 'test'
     }
   },
-  z: false
+  z: false,
+  y: -1
 };
 
 var c = diff.changes(a, b);
