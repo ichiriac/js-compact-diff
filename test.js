@@ -26,12 +26,15 @@ var b = {
   y: -1
 };
 
+diff.changes(null, b);
 diff.changes(a, null);
 var c = diff.changes(a, b);
 console.log(a);
 console.log('---------------');
 console.log(c);
 
+diff.apply(null, c);
+diff.apply(a, null);
 var b2 = diff.apply(a, c);
 console.log('---------------');
 console.log(b2);

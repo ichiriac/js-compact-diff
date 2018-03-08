@@ -1,5 +1,8 @@
 var api = {
   changes: function(a, b) {
+    if (a === null || typeof a === 'undefined') {
+      a = {};
+    }
     if (b === null || typeof b === 'undefined') {
       b = {};
     }
@@ -49,9 +52,13 @@ var api = {
     return result;
   },
   apply: function(a, c) {
-    if (c === null || typeof c === 'undefined') return a;
+    if (c === null || typeof c === 'undefined') {
+      return a;
+    }
     var result = c.__ && c.__ === 'a' ? [] : {};
-    if (a) {
+    if (a === null || typeof a === 'undefined') {
+      a = {};
+    } else if (a) {
       for(var k in a) {
         if (a.hasOwnProperty(k)) {
           if (c._ && c._.indexOf(k) > -1) {
@@ -95,7 +102,6 @@ var api = {
         }
       }
     }
-
     return result;
   }
 };
