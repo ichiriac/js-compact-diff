@@ -1,6 +1,8 @@
 var api = {
   changes: function(a, b) {
-    if (b === null || typeof b === 'undefined') return a;
+    if (b === null || typeof b === 'undefined') {
+      b = {};
+    }
     var result = {};
     for(var k in a) {
       if (a.hasOwnProperty(k)) {
@@ -17,10 +19,10 @@ var api = {
                 result[k] = c;
               }
             } else {
-              result[k] = b[k];
+              result[k] = api.changes({}, b[k]);
             }
           } else {
-            result[k] = b[k];
+            result[k] = api.changes({}, b[k]);
           }
         }
       }
@@ -29,7 +31,11 @@ var api = {
       if (b.hasOwnProperty(k)) {
         if (!a.hasOwnProperty(k)) {
           // appends additions
-          result[k] = b[k];
+          if (typeof b[k] === 'object' || Array.isArray(b[k])) {
+            result[k] = api.changes({}, b[k]);
+          } else {
+            result[k] = b[k];
+          }
         }
       }
     }
@@ -62,7 +68,7 @@ var api = {
                 result[k] = c[k];
               }
             } else {
-              if (c[k].__ === 'a') {
+              if (c[k] && c[k].__ === 'a') {
                 // rebuilds the array
                 result[k] = [];
                 for(var i in c[k]) {
