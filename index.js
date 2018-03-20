@@ -17,7 +17,7 @@ var api = {
           // get changes
           if (typeof a[k] === 'object' || Array.isArray(a[k])) {
             if (typeof b[k] === 'object' || Array.isArray(b[k])) {
-              let c = api.changes(a[k], b[k]);
+              var c = api.changes(a[k], b[k]);
               if (c) {
                 result[k] = c;
               }
