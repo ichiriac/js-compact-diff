@@ -1,5 +1,5 @@
 var api = {
-  changes: function(a, b) {
+  changes: function(a, b, clone) {
     if (a === null || typeof a === 'undefined') {
       a = {};
     }
@@ -22,10 +22,10 @@ var api = {
                 result[k] = c;
               }
             } else {
-              result[k] = api.changes({}, b[k]);
+              result[k] = api.changes({}, b[k], true);
             }
           } else {
-            result[k] = api.changes({}, b[k]);
+            result[k] = b[k];
           }
         }
       }
@@ -35,14 +35,14 @@ var api = {
         if (!a.hasOwnProperty(k)) {
           // appends additions
           if (typeof b[k] === 'object' || Array.isArray(b[k])) {
-            result[k] = api.changes({}, b[k]);
+            result[k] = api.changes({}, b[k], true);
           } else {
             result[k] = b[k];
           }
         }
       }
     }
-    if (Object.keys(result).length === 0) {
+    if (Object.keys(result).length === 0 && !clone) {
       // no change
       return null;
     }
