@@ -60,7 +60,11 @@ var api = {
     }
     var result = a;
     if (typeof a === 'object') {
-      result = a.__ && a.__ === 'a' ? [] : {};
+      if (Array.isArray(a)) {
+        result = [];
+      } else {
+        result = a.__ && a.__ === 'a' ? [] : {};
+      }
       for(var k in a) {
         if (k !== '_' && k != '__') {
           result[k] = this.convert(a[k]);
