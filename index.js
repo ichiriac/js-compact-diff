@@ -51,11 +51,29 @@ var api = {
     }
     return result;
   },
-  apply: function(a, c) {
-    if (c === null || typeof c === 'undefined') {
+  /**
+   * Converts an object to primitive object
+   */
+  convert: function(a) {
+    if (a === null || typeof a === 'undefined') {
       return a;
     }
-    var result = c.__ && c.__ === 'a' ? [] : {};
+    var result = a;
+    if (typeof a === 'object') {
+      result = a.__ && a.__ === 'a' ? [] : {};
+      for(var k in a) {
+        if (k !== '_' && k != '__') {
+          result[k] = this.convert(a[k]);
+        }
+      }
+    }
+    return result;
+  },
+  apply: function(a, c) {
+    if (c === null || typeof c === 'undefined') {
+      return this.convert(a);
+    }
+    var result = this.convert(c);
     if (a === null || typeof a === 'undefined') {
       a = {};
     } else if (a) {
@@ -80,7 +98,7 @@ var api = {
                 result[k] = [];
                 for(var i in c[k]) {
                   if (i !== '_' && i !== '__') {
-                    result[k][i] = c[k][i];
+                    result[k][i] = this.convert(c[k][i]);
                   }
                 }
               } else {
@@ -89,7 +107,7 @@ var api = {
             }
           } else {
             // exactly the same
-            result[k] = a[k];
+            result[k] = this.convert(a[k]);
           }
         }
       }
@@ -98,7 +116,7 @@ var api = {
     for(var k in c) {
       if (k !== '_' && k !== '__' && c.hasOwnProperty(k)) {
         if (!a.hasOwnProperty(k)) {
-          result[k] = c[k];
+          result[k] = this.convert(c[k]);
         }
       }
     }
