@@ -10,6 +10,7 @@ var a = {
       bar: 'test'
     }
   },
+  x: {foo: true},
   z: [1, 2, 3]
 };
 
@@ -22,6 +23,7 @@ var b = {
       bar: 'test'
     }
   },
+  x: null,
   z: false,
   y: -1
 };

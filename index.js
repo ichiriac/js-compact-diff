@@ -14,8 +14,11 @@ var api = {
           if (!result._) result._ = [];
           result._.push(k);
         } else if (a[k] !== b[k]) {
-          // get changes
-          if (typeof a[k] === 'object' || Array.isArray(a[k])) {
+          if (b[k] === null) {
+            // removes the entry
+            result[k] = null;
+          } else if (typeof a[k] === 'object' || Array.isArray(a[k])) {
+            // get changes
             if (typeof b[k] === 'object' || Array.isArray(b[k])) {
               var c = api.changes(a[k], b[k]);
               if (c) {
