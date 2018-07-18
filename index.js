@@ -37,7 +37,7 @@ var api = {
       if (b.hasOwnProperty(k)) {
         if (!a.hasOwnProperty(k)) {
           // appends additions
-          if (typeof b[k] === 'object' || Array.isArray(b[k])) {
+          if (b[k] !== null && (typeof b[k] === 'object' || Array.isArray(b[k]))) {
             result[k] = api.changes({}, b[k], true);
           } else {
             result[k] = b[k];

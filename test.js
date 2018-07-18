@@ -25,22 +25,23 @@ var b = {
   },
   x: null,
   z: false,
+  zap: null,
   y: -1
 };
 
 diff.changes(null, b);
 diff.changes(a, null);
 var c = diff.changes(a, b);
-console.log(a);
+console.log('A = ', a);
 console.log('---------------');
-console.log(c);
+console.log('DIFF A-B = ', c);
 
 diff.apply(null, c);
 diff.apply(a, null);
 var b2 = diff.apply(a, c);
 console.log('---------------');
-console.log(b2);
+console.log('DIFF A-C', b2);
 console.log('---------------');
-console.log(b);
+console.log('B', b);
 console.log('---------------');
 console.log(diff.changes(b, b2));
