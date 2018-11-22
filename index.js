@@ -25,7 +25,7 @@ var api = {
                 result[k] = c;
               }
             } else {
-              result[k] = api.changes({}, b[k], true);
+              result[k] = b[k]; // api.changes({}, b[k], true);
             }
           } else {
             result[k] = b[k];
@@ -93,7 +93,7 @@ var api = {
           if (c.hasOwnProperty(k)) {
             // detect changes
             if (typeof a[k] === 'object' || Array.isArray(a[k])) {
-              if (typeof c[k] === 'object') {
+              if (c[k] !== null && typeof c[k] === 'object') {
                 result[k] = api.apply(a[k], c[k]);
               } else {
                 // destination is a primitive
