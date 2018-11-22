@@ -1,6 +1,6 @@
 {
   "name": "js-compact-diff",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Javascript Diff representation between objects (in a compacted way)",
   "main": "index.js",
   "scripts": {
